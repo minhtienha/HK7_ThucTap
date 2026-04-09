@@ -88,12 +88,15 @@ export const useBooking = (movie, maPhong, maSuat, navigate) => {
         .map((s) => s.MAGHE);
 
       if (paymentMethod === "momo") {
-        const res = await axios.post("http://localhost:5000/api/thanh-toan/momo", {
+        const baseUrl = import.meta.env.VITE_API_BASE_URL?.replace("/api", "") || "http://localhost:5000";
+        const frontendUrl = import.meta.env.VITE_FRONTEND_URL || window.location.origin;
+
+        const res = await axios.post(`${baseUrl}/api/thanh-toan/momo`, {
           amount: totalAmount.toString(),
           orderId: "CB_" + Date.now(),
           orderInfo: `Vé: ${movie.title}`,
-          redirectUrl: `http://localhost:3000/booking-success?seats=${selectedSeats.join(",")}&total=${totalAmount}&movie=${movie.title}`,
-          ipnUrl: "https://your-webhook.com/api/momo-callback",
+          redirectUrl: `${frontendUrl}/booking-success?seats=${selectedSeats.join(",")}&total=${totalAmount}&movie=${movie.title}`,
+          ipnUrl: `${baseUrl}/api/thanh-toan/momo/callback`,
           extraData: JSON.stringify({
             MASUAT: maSuat,
             MAKH: user.MAKH,
