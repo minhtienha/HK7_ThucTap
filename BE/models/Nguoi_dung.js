@@ -15,8 +15,8 @@ const nguoiDungSchema = new mongoose.Schema({
   MARAP: { type: String, default: null },
 });
 
-// Thêm logic băm mật khẩu bằng bcrypt
-const bcrypt = require("bcrypt");
+// Thêm logic băm mật khẩu bằng bcryptjs
+const bcrypt = require("bcryptjs");
 
 // Tạo MAKH tự động trước khi lưu
 nguoiDungSchema.pre("save", async function (next) {

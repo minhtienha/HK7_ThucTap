@@ -1,5 +1,5 @@
 const NguoiDung = require("../models/Nguoi_dung");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const asyncHandler = require("express-async-handler");
 
